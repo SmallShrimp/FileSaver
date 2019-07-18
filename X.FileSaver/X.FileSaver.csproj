@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Version>0.18.1</Version>
+    <Description>Volo.Abp 模块
+用于处理文件 以管道的方式</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp" Version="0.18.1" />
+  </ItemGroup>
+
+</Project>
