@@ -10,3 +10,8 @@ Configure<FileStoreOptions>(options => {
                 options.AddStore<LocalFileStore>();
             });
 ```
+
+#### 功能
+
+- [x] 本地存储
+- [ ] 远程文件存储
