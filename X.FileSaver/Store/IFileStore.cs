@@ -12,7 +12,11 @@ namespace X.FileSaver.Store
         string StoreName { get; }
 
         FileStoreHandResult Save(FileInfo file);
-
+        /// <summary>
+        /// 获取文件
+        /// </summary>
+        /// <param name="fileName">文件名称 包含扩展名</param>
+        /// <returns></returns>
         RawFileInfo Get(string fileName);
 
     }

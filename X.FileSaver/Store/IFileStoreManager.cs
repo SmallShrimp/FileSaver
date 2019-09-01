@@ -21,7 +21,7 @@ namespace X.FileSaver.Store
         /// 异步操作文件 不等待结果
         /// </summary>
         /// <param name="file"></param>
-        void SaveFile(FileInfo file);
+        string SaveFile(FileInfo file);
 
         /// <summary>
         /// 获取文件 根据文件名称

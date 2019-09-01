@@ -17,7 +17,8 @@ namespace X.FileSaver.Store
         protected IReadOnlyList<IFileStore> FileStores => _fileStores.Value;
 
 
-        public FileStoreManager(IOptions<FileStoreOptions> options,
+        public FileStoreManager(
+            IOptions<FileStoreOptions> options,
             IServiceProvider serviceProvider)
         {
             _fileStores = new Lazy<List<IFileStore>>(
@@ -36,14 +37,23 @@ namespace X.FileSaver.Store
         public FileSavedResult SaveFileAndGetResult([NotNull] FileInfo file)
         {
             var result = new FileSavedResult();
-            var uniqueFileName = file.UniqueFileName.IsNullOrWhiteSpace() ? GenerateUniqueFileName(Path.GetExtension(file.FileName)) : file.UniqueFileName;
-            file.UniqueFileName = uniqueFileName;
+
+            SetFileName(file);
             foreach (var store in FileStores)
             {
                 FileStoreHandResult storeResult = store.Save(file);
                 result.Items.Add(storeResult);
             }
             return result;
+        }
+
+        private void SetFileName(FileInfo file)
+        {
+            if (file.UniqueFileName.IsNullOrWhiteSpace())
+            {
+                var uniqueFileName = GenerateUniqueFileName(Path.GetExtension(file.FileName));
+                file.UniqueFileName = uniqueFileName;
+            }
         }
 
         public RawFileInfo GetFile(string fileName, string storeName)
@@ -60,14 +70,14 @@ namespace X.FileSaver.Store
         /// 异步处理文件
         /// </summary>
         /// <param name="file"></param>
-        public void SaveFile(FileInfo file)
+        public string SaveFile(FileInfo file)
         {
-            var uniqueFileName = file.UniqueFileName.IsNullOrWhiteSpace() ? GenerateUniqueFileName(Path.GetExtension(file.FileName)) : file.UniqueFileName;
-            file.UniqueFileName = uniqueFileName;
+            SetFileName(file);
             foreach (var store in FileStores)
             {
                 new TaskFactory().StartNew(() => store.Save(file));
             }
+            return file.UniqueFileName;
         }
     }
 }

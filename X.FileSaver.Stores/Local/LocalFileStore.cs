@@ -22,7 +22,11 @@ namespace X.FileSaver.Stores.Local
 
         public string StoreName { get; set; } = typeof(LocalFileStore).Name;
 
-
+        /// <summary>
+        /// 获取文件
+        /// </summary>
+        /// <param name="fileName">文件名称 包含扩展名</param>
+        /// <returns></returns>
         public RawFileInfo Get(string fileName)
         {
 
@@ -57,20 +61,24 @@ namespace X.FileSaver.Stores.Local
                 throw new Exception("本地存储位置不能为空");
             }
 
-            var uniqueFileName = GenerateUniqueFileName(Path.GetExtension(file.FileName));
-            file.UniqueFileName = uniqueFileName;
+            if (file.UniqueFileName.IsNullOrWhiteSpace())
+            {
+                var uniqueFileName = GenerateUniqueFileName(Path.GetExtension(file.FileName));
+                file.UniqueFileName = uniqueFileName;
+            }
+
             var localFolder = GetFilePath();
             // 创建文件夹
             DirectoryHelper.CreateIfNotExists(localFolder);
 
-            var filePath = Path.Combine(localFolder, uniqueFileName);
+            var filePath = Path.Combine(localFolder, file.UniqueFileName);
             // 保存文件
             File.WriteAllBytes(filePath, file.Bytes);
 
             return new FileStoreHandResult
             {
                 StoreName = StoreName,
-                FileName = uniqueFileName,
+                FileName = file.UniqueFileName,
                 FileAddress = filePath,
                 AddressType = AddressType.本地绝对路径,
                 Raw = new RawFileInfo { Bytes = file.Bytes, FileType = file.FileType },
