@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using X.FileSaver.Store.Dto;
 
 namespace X.FileSaver.Store
 {
-    public class FileStoreManager: IFileStoreManager
+    public class FileStoreManager : IFileStoreManager
     {
         private readonly Lazy<List<IFileStore>> _fileStores;
         protected IReadOnlyList<IFileStore> FileStores => _fileStores.Value;
@@ -27,8 +28,12 @@ namespace X.FileSaver.Store
                 );
         }
 
-
-        public FileSavedResult SaveFile([NotNull] FileInfo file)
+        /// <summary>
+        /// 文件处理
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public FileSavedResult SaveFileAndGetResult([NotNull] FileInfo file)
         {
             var result = new FileSavedResult();
             var uniqueFileName = file.UniqueFileName.IsNullOrWhiteSpace() ? GenerateUniqueFileName(Path.GetExtension(file.FileName)) : file.UniqueFileName;
@@ -49,6 +54,20 @@ namespace X.FileSaver.Store
         protected virtual string GenerateUniqueFileName(string extension, string prefix = null, string postfix = null)
         {
             return prefix + Guid.NewGuid().ToString("N") + postfix + extension;
+        }
+
+        /// <summary>
+        /// 异步处理文件
+        /// </summary>
+        /// <param name="file"></param>
+        public void SaveFile(FileInfo file)
+        {
+            var uniqueFileName = file.UniqueFileName.IsNullOrWhiteSpace() ? GenerateUniqueFileName(Path.GetExtension(file.FileName)) : file.UniqueFileName;
+            file.UniqueFileName = uniqueFileName;
+            foreach (var store in FileStores)
+            {
+                new TaskFactory().StartNew(() => store.Save(file));
+            }
         }
     }
 }

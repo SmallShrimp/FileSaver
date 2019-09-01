@@ -37,7 +37,7 @@ namespace X.FileSaver.DemoApp.Controllers
                 throw new UserFriendlyException("File is empty!");
             }
 
-            var output = _fileStoreManager.SaveFile(
+            var output = _fileStoreManager.SaveFileAndGetResult(
                 new FileInfo
                 {
                     Bytes = file.GetAllBytes(),

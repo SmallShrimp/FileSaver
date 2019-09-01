@@ -22,6 +22,7 @@ namespace X.FileSaver.Stores.Local
 
         public string StoreName { get; set; } = typeof(LocalFileStore).Name;
 
+
         public RawFileInfo Get(string fileName)
         {
 
@@ -72,7 +73,7 @@ namespace X.FileSaver.Stores.Local
                 FileName = uniqueFileName,
                 FileAddress = filePath,
                 AddressType = AddressType.本地绝对路径,
-                Raw = new RawFileInfo { Bytes = file.Bytes },
+                Raw = new RawFileInfo { Bytes = file.Bytes, FileType = file.FileType },
                 FileType = file.FileType,
                 FileSize = file.FileSize
             };

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using X.FileSaver.Store.Dto;
 
@@ -14,7 +15,13 @@ namespace X.FileSaver.Store
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        FileSavedResult SaveFile(FileInfo file);
+        FileSavedResult SaveFileAndGetResult(FileInfo file);
+
+        /// <summary>
+        /// 异步操作文件 不等待结果
+        /// </summary>
+        /// <param name="file"></param>
+        void SaveFile(FileInfo file);
 
         /// <summary>
         /// 获取文件 根据文件名称
