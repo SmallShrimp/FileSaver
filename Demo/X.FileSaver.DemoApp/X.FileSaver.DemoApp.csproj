@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\X.FileSaver.Stores.MongoGridFS\X.FileSaver.Stores.MongoGridFS.csproj" />
     <ProjectReference Include="..\..\X.FileSaver.Stores\X.FileSaver.Stores.csproj" />
   </ItemGroup>
 

@@ -98,5 +98,16 @@ namespace X.FileSaver.Stores.MongoGridFS.Extensions
 
             return fileDetails;
         }
+
+        public async Task<FileDetails> UploadFileFromBytesAsync(byte[] bytes, FileDetails fileDetails)
+        {
+            var id = await fsBucket.UploadFromBytesAsync(fileDetails.Name, bytes);
+            fileDetails.Id = id.ToString();
+
+            var collection = fileInfoDB.GetCollection<FileDetails>(fileInfoDbName);
+            await collection.InsertOneAsync(fileDetails);
+
+            return fileDetails;
+        }
     }
 }

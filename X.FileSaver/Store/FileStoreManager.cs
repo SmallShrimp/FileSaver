@@ -42,6 +42,7 @@ namespace X.FileSaver.Store
             foreach (var store in FileStores)
             {
                 FileStoreHandResult storeResult = store.Save(file);
+                storeResult.Raw = null;
                 result.Items.Add(storeResult);
             }
             return result;

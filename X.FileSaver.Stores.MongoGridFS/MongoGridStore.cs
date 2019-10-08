@@ -37,32 +37,27 @@ namespace X.FileSaver.Stores.MongoGridFS
         public FileStoreHandResult Save(Store.FileInfo file)
         {
 
-            using (MemoryStream memStream = new MemoryStream())
+            var filedetail = AsyncHelper.RunSync(() => _storageService.UploadFileFromBytesAsync(file.Bytes, new FileDetails
             {
-                memStream.Write(file.Bytes, 0, file.Bytes.Length);
-                var filedetail = AsyncHelper.RunSync(() => _storageService.UploadFileAsync(memStream, new FileDetails
-                {
-                    Name = file.FileName,
-                    Id = file.UniqueFileName,
-                    Size = file.FileSize,
-                    AddedDate = DateTime.Now,
-                    AddedBy = "",
-                    Description = file.FileName,
-                    Tags = new List<string>(),
-                    LastModified = DateTime.Now,
-                    ContentType = file.FileType
-                }));
-                return new FileStoreHandResult
-                {
-                    StoreName = this.StoreName,
-                    FileName = file.UniqueFileName,
-                    FileSize = file.FileSize,
-                    FileType = file.FileType,
-                    FileAddress = "",
-                    AddressType = AddressType.网络路径,
-                    Raw = new RawFileInfo { Bytes = file.Bytes, FileType = file.FileType }
-                };
-            }
+                Name = file.FileName,
+                Size = file.FileSize,
+                AddedDate = DateTime.Now,
+                AddedBy = "",
+                Description = file.FileName,
+                Tags = new List<string>(),
+                LastModified = DateTime.Now,
+                ContentType = file.FileType
+            }));
+            return new FileStoreHandResult
+            {
+                StoreName = this.StoreName,
+                FileName = filedetail.Id,
+                FileSize = file.FileSize,
+                FileType = file.FileType,
+                FileAddress = "",
+                AddressType = AddressType.网络路径,
+                Raw = new RawFileInfo { Bytes = file.Bytes, FileType = file.FileType }
+            };
 
         }
     }

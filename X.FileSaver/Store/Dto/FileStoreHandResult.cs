@@ -30,5 +30,6 @@ namespace X.FileSaver.Store.Dto
         网络路径 = 0,
         本地绝对路径,
         本地相对路径
+
     }
 }

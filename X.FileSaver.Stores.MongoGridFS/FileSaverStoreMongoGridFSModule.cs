@@ -1,5 +1,6 @@
 ﻿using System;
 using Volo.Abp.Modularity;
+using X.FileSaver.Store;
 using X.FileSaver.Stores.MongoGridFS.Settings;
 
 namespace X.FileSaver.Stores.MongoGridFS
@@ -14,9 +15,11 @@ namespace X.FileSaver.Stores.MongoGridFS
 
             //Configure<MongoDBAppSettings>(options =>
             //{
-                
-            //});
 
+            //});
+            Configure<FileStoreOptions>(options => {
+                options.AddStore<MongoGridStore>();
+            });
         }
 
 

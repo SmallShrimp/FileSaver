@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Version>0.18.1</Version>
+    <Version>0.21.0</Version>
     <Description>Volo.Abp 模块
 用于处理文件 以管道的方式</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

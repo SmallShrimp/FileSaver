@@ -10,6 +10,9 @@ namespace X.FileSaver.Stores.MongoGridFS.Extensions
     public interface IStorageService : ITransientDependency
     {
         Task<FileDetails> UploadFileAsync(Stream fileStream, FileDetails fileDetails);
+
+        Task<FileDetails> UploadFileFromBytesAsync(byte[] bytes, FileDetails fileDetails);
+
         Task<(Stream, FileDetails)> DownloadFileAsync(string id);
         Task<FileDetails> UpdateFileDetailsAsync(FileDetails details);
         Task<FileDetails> GetFileDetailsAsync(string id);

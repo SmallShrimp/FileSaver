@@ -37,7 +37,7 @@ namespace X.FileSaver.DemoApp.Controllers
                 throw new UserFriendlyException("File is empty!");
             }
 
-            var fileName = _fileStoreManager.SaveFile(
+            var fileResult = _fileStoreManager.SaveFileAndGetResult(
                 new FileInfo
                 {
                     Bytes = file.GetAllBytes(),
@@ -47,7 +47,7 @@ namespace X.FileSaver.DemoApp.Controllers
                 }
             );
             
-            return Json(fileName);
+            return Json(fileResult);
         }
 
         [HttpGet]

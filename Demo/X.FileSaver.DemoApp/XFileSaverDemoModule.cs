@@ -13,6 +13,8 @@ using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
 using X.FileSaver.Stores;
 using X.FileSaver.Stores.Local;
+using X.FileSaver.Stores.MongoGridFS;
+using X.FileSaver.Stores.MongoGridFS.Settings;
 
 namespace X.FileSaver.DemoApp
 {
@@ -20,7 +22,7 @@ namespace X.FileSaver.DemoApp
     [DependsOn(
         typeof(AbpAutofacModule),
         typeof(AbpAspNetCoreMvcModule),
-        typeof(XFileSaverStoreModule)
+        typeof(FileSaverStoreMongoGridFSModule)
         )]
     public class XFileSaverDemoModule : AbpModule
     {
@@ -35,9 +37,9 @@ namespace X.FileSaver.DemoApp
                 options.LocalFolder = Path.Combine(hostingEnvironment.WebRootPath, "files/Data/{0}");
             });
 
-            Configure<StaticFileOptions>(options =>
+            Configure<MongoDBAppSettings>(options =>
             {
-
+                options.ConnectionString = "mongodb://192.168.3.222:32773";
             });
 
             context.Services.AddSwaggerGen(
