@@ -11,6 +11,7 @@ using Volo.Abp.AspNetCore;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Autofac;
 using Volo.Abp.Modularity;
+using X.FileSaver.Store;
 using X.FileSaver.Stores;
 using X.FileSaver.Stores.Local;
 using X.FileSaver.Stores.MongoGridFS;
@@ -49,7 +50,7 @@ namespace X.FileSaver.DemoApp
                     options.DocInclusionPredicate((docName, description) => true);
                     //options.CustomSchemaIds(type => type.FullName);
                 });
-
+           
         }
 
         public override void OnApplicationInitialization(ApplicationInitializationContext context)

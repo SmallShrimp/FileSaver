@@ -20,7 +20,12 @@ namespace X.FileSaver.Stores.Local
             Options = options.Value;
         }
 
-        public string StoreName { get; set; } = typeof(LocalFileStore).Name;
+        public string StoreName => GetName();
+
+        public static string GetName()
+        {
+            return typeof(LocalFileStore).Name;
+        }
 
         /// <summary>
         /// 获取文件
@@ -42,6 +47,7 @@ namespace X.FileSaver.Stores.Local
                 return new RawFileInfo
                 {
                     Bytes = bytes,
+                    FileName = new System.IO.FileInfo(filePath).Name,
                     FileType = MimeTypeMap.List.MimeTypeMap.GetMimeType(fileExtension).FirstOrDefault() ?? "text/plain"
                 };
             }

@@ -9,6 +9,7 @@ namespace X.FileSaver.Store
     public interface IFileStore : ITransientDependency
     {
 
+
         string StoreName { get; }
 
         FileStoreHandResult Save(FileInfo file);

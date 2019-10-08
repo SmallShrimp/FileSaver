@@ -11,12 +11,17 @@ namespace X.FileSaver.Stores.MongoGridFS
 {
     public class MongoGridStore : IFileStore
     {
-        public string StoreName => typeof(MongoGridStore).Name;
+        public string StoreName => MongoGridStore.GetName();
         private readonly IStorageService _storageService;
         public MongoGridStore(
             IStorageService storageService)
         {
             _storageService = storageService;
+        }
+
+        public static string GetName()
+        {
+            return typeof(MongoGridStore).Name;
         }
 
         public RawFileInfo Get(string fileName)
@@ -29,7 +34,8 @@ namespace X.FileSaver.Stores.MongoGridFS
                 return new RawFileInfo
                 {
                     Bytes = bytes,
-                    FileType = downloadResult.Item2.ContentType
+                    FileType = downloadResult.Item2.ContentType,
+                    FileName = downloadResult.Item2.Name
                 };
             }
         }

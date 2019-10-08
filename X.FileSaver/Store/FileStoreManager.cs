@@ -14,13 +14,18 @@ namespace X.FileSaver.Store
     public class FileStoreManager : IFileStoreManager
     {
         private readonly Lazy<List<IFileStore>> _fileStores;
-        protected IReadOnlyList<IFileStore> FileStores => _fileStores.Value;
-
+        protected IReadOnlyList<IFileStore> FileStores => _fileStores.Value
+            .Where(s => !Blacklist.Contains(s.StoreName))
+            .ToList();
+        private IList<string> Blacklist { get; set; }
 
         public FileStoreManager(
             IOptions<FileStoreOptions> options,
             IServiceProvider serviceProvider)
         {
+
+            Blacklist = options.Value.Blacklist;
+
             _fileStores = new Lazy<List<IFileStore>>(
                 () => options.Value.FileStores
                 .Select(s => serviceProvider.GetRequiredService(s) as IFileStore)
@@ -41,6 +46,7 @@ namespace X.FileSaver.Store
             SetFileName(file);
             foreach (var store in FileStores)
             {
+                // store.StoreName
                 FileStoreHandResult storeResult = store.Save(file);
                 storeResult.Raw = null;
                 result.Items.Add(storeResult);
@@ -59,7 +65,8 @@ namespace X.FileSaver.Store
 
         public RawFileInfo GetFile(string fileName, string storeName)
         {
-            return FileStores.FirstOrDefault(s => s.StoreName == storeName)?.Get(fileName);
+            return FileStores
+                .FirstOrDefault(s => s.StoreName == storeName)?.Get(fileName);
         }
 
         protected virtual string GenerateUniqueFileName(string extension, string prefix = null, string postfix = null)

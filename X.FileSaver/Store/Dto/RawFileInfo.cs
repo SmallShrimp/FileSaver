@@ -9,5 +9,7 @@ namespace X.FileSaver.Store
         public byte[] Bytes { get; set; } = null;
 
         public string FileType { get; set; }
+
+        public string FileName { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Volo.Abp.Collections;
+using X.FileSaver.Store.Dto;
 
 namespace X.FileSaver.Store
 {
@@ -9,10 +11,17 @@ namespace X.FileSaver.Store
     {
         public ITypeList<IFileStore> FileStores { get; }
 
+
+        /// <summary>
+        ///  黑名单store name
+        ///  在此列表中的store名称对应的store不会被使用
+        /// </summary>
+        public IList<string> Blacklist { get; set; }
+
         public FileStoreOptions()
         {
             FileStores = new TypeList<IFileStore>();
-
+            Blacklist = new List<string>();
         }
 
         public void AddStore<T>() where T : IFileStore
@@ -30,6 +39,7 @@ namespace X.FileSaver.Store
         {
             FileStores.AddLast(typeof(T));
         }
+
 
         /// <summary>
         /// 
