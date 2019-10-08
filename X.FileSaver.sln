@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X.FileSaver", "X.FileSaver\X.FileSaver.csproj", "{815F75AD-EFCC-47A8-86F8-B8126D157353}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X.FileSaver.Stores", "X.FileSaver.Stores\X.FileSaver.Stores.csproj", "{5F23C332-52F4-4132-AD1C-E14784FABDC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X.FileSaver.Stores", "X.FileSaver.Stores\X.FileSaver.Stores.csproj", "{5F23C332-52F4-4132-AD1C-E14784FABDC3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{937EE9D3-FB06-4AFE-9EFF-66EA6FFD7E6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X.FileSaver.DemoApp", "Demo\X.FileSaver.DemoApp\X.FileSaver.DemoApp.csproj", "{892B8D80-2000-4E99-AA84-5D3A726D7E07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "X.FileSaver.DemoApp", "Demo\X.FileSaver.DemoApp\X.FileSaver.DemoApp.csproj", "{892B8D80-2000-4E99-AA84-5D3A726D7E07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "X.FileSaver.Stores.MongoGridFS", "X.FileSaver.Stores.MongoGridFS\X.FileSaver.Stores.MongoGridFS.csproj", "{6AA0F7EF-27E0-468D-BE45-5EAFA26271A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{892B8D80-2000-4E99-AA84-5D3A726D7E07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{892B8D80-2000-4E99-AA84-5D3A726D7E07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{892B8D80-2000-4E99-AA84-5D3A726D7E07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA0F7EF-27E0-468D-BE45-5EAFA26271A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA0F7EF-27E0-468D-BE45-5EAFA26271A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA0F7EF-27E0-468D-BE45-5EAFA26271A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA0F7EF-27E0-468D-BE45-5EAFA26271A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
