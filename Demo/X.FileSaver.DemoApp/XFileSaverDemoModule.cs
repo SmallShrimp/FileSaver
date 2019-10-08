@@ -34,6 +34,12 @@ namespace X.FileSaver.DemoApp
             {
                 options.LocalFolder = Path.Combine(hostingEnvironment.WebRootPath, "files/Data/{0}");
             });
+
+            Configure<StaticFileOptions>(options =>
+            {
+
+            });
+
             context.Services.AddSwaggerGen(
                 options =>
                 {
@@ -47,13 +53,16 @@ namespace X.FileSaver.DemoApp
         public override void OnApplicationInitialization(ApplicationInitializationContext context)
         {
             var app = context.GetApplicationBuilder();
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support APP API");
-            });
-            
-            app.UseMvcWithDefaultRoute();
+
+
+            //app.UseSwagger();
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Support APP API");
+            //});
+
+            app.UseRouting();
+            app.UseMvcWithDefaultRouteAndArea();
         }
 
     }
